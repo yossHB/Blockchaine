@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>FacCoin</title>
+    <link rel="stylesheet" href="FacCoin.css">
+    <link rel="script" href="FacCoin.js">
+</head>
+<body>
+    <div class="mainContainer">
+        <div id="transfer">
+            <input type="text" id="destinationaddress" placeholder="destination address">
+            <input type="text" id="value" placeholder="value">
+            <br>
+            <button class="btn" onclick="transfer()">Transfer</button>
+            <br>
+        </div>
+        <div id="transferFrom">
+            <input type="text" name="adminaddress" placeholder="admin address">
+            <input type="text" name="destinationaddress" placeholder="destination address">
+            <input type="text" name="value" placeholder="value">
+            <br>
+            <button class="btn" onclick="transferFrom()">Transfer From</button>
+            <br>
+        </div>
+        <div id="balanceOf">
+            <input type="text" name="adminaddress" placeholder="admin address">
+            <input type="text" name="destinationaddress" placeholder="destination address">
+            <br>
+            <input type="text" name="adminaddress" placeholder="admin address">
+            <input type="text" name="value" placeholder="value">
+            <br>
+            <button class="btn" onclick="balanceOf()">Balance Of</button>
+            <br>
+        </div>
+        <div id="allowance">
+            <input type="text" name="adminaddress" placeholder="admin address">
+            <input type="text" name="destinationaddress" placeholder="destination address">
+            <br>
+            <button class="btn" onclick="allowance()">Allowance</button>
+        </div>
+    </div>
+</body>
+</html>
