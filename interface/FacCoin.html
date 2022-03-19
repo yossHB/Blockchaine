@@ -4,23 +4,22 @@
     <meta charset="UTF-8">
     <title>FacCoin</title>
     <link rel="stylesheet" href="FacCoin.css">
-    <link rel="script" href="FacCoin.js">
 </head>
 <body>
     <div class="mainContainer">
-        <div id="transfer">
+        <div>
             <input type="text" id="destinationaddress" placeholder="destination address">
-            <input type="text" id="value" placeholder="value">
+            <input type="number" id="value" placeholder="value">
             <br>
-            <button class="btn" onclick="transfer()">Transfer</button>
+            <button class="btn" onclick="transfere()">Transfer</button>
             <p id="ResultTransfer">Result : </p>
             <hr>
         </div>
         <br>
         <div id="transferFrom">
-            <input type="text" name="adminaddress" placeholder="admin address">
-            <input type="text" name="destinationaddress" placeholder="destination address">
-            <input type="text" name="value" placeholder="value">
+            <input type="text" id="fromadminaddress" placeholder="admin address">
+            <input type="text" id="fromdestinationaddress" placeholder="destination address">
+            <input type="number" id="fromvalue" placeholder="value">
             <br>
             <button class="btn" onclick="transferFrom()">Transfer From</button>
             <p id="ResultTransferFrom">Result : </p>
@@ -28,11 +27,7 @@
         </div>
         <br>
         <div id="balanceOf">
-            <input type="text" name="adminaddress" placeholder="admin address">
-            <input type="text" name="destinationaddress" placeholder="destination address">
-            <br>
-            <input type="text" name="adminaddress" placeholder="admin address">
-            <input type="text" name="value" placeholder="value">
+            <input type="text" id="balanceadminaddress" placeholder="admin address">
             <br>
             <button class="btn" onclick="balanceOf()">Balance Of</button>
             <p id="ResultBalanceOf">Result : </p>
@@ -40,13 +35,14 @@
         </div>
         <br>
         <div id="allowance">
-            <input type="text" name="adminaddress" placeholder="admin address">
-            <input type="text" name="destinationaddress" placeholder="destination address">
+            <input type="text" id="allowanceadminaddress" placeholder="admin address">
+            <input type="text" id="allowancedestinationaddress" placeholder="destination address">
             <br>
             <button class="btn" onclick="allowance()">Allowance</button>
             <p id="ResultAllowance">Result : </p>
             <hr>
         </div>
     </div>
+    <script src="FacCoin.js"></script>
 </body>
 </html>

@@ -11,12 +11,13 @@
 }
 div {
     box-shadow: 2px 2px 2px 2px;
+    padding-top: 2%;
 }
 input{
     padding: 1%;
-    margin: 1%;
-    width: 250px;
-    height: 40px;
+    margin: 2%;
+    width: 200px;
+    height: 35px;
     border: 2px solid #5864ff;
 }
 button{
