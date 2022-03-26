@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>FacCoin</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="FacCoin.css">
 </head>
 <body>
     <div class="mainContainer">
+
+        Status: <span id="status">Loading...</span>
+        <br>
         <div>
             <input type="text" id="destinationaddress" placeholder="destination address">
             <input type="number" id="value" placeholder="value">
             <br>
-            <button class="btn" onclick="transfere()">Transfer</button>
+            <button class="btn" id="clicktransfer" onclick="transfere();">Transfer</button>
             <p id="ResultTransfer">Result : </p>
             <hr>
         </div>
@@ -21,7 +26,7 @@
             <input type="text" id="fromdestinationaddress" placeholder="destination address">
             <input type="number" id="fromvalue" placeholder="value">
             <br>
-            <button class="btn" onclick="transferFrom()">Transfer From</button>
+            <button class="btn" onclick="transferFrom();">Transfer From</button>
             <p id="ResultTransferFrom">Result : </p>
             <hr>
         </div>
@@ -29,7 +34,7 @@
         <div id="balanceOf">
             <input type="text" id="balanceadminaddress" placeholder="admin address">
             <br>
-            <button class="btn" onclick="balanceOf()">Balance Of</button>
+            <button class="btn" onclick="balanceOf();">Balance Of</button>
             <p id="ResultBalanceOf">Result : </p>
             <hr>
         </div>
@@ -38,11 +43,241 @@
             <input type="text" id="allowanceadminaddress" placeholder="admin address">
             <input type="text" id="allowancedestinationaddress" placeholder="destination address">
             <br>
-            <button class="btn" onclick="allowance()">Allowance</button>
+            <button class="btn" onclick="allowance();">Allowance</button>
             <p id="ResultAllowance">Result : </p>
             <hr>
         </div>
     </div>
-    <script src="FacCoin.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        const abi = [
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "_spender",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_value",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "approve",
+                "outputs": [
+                    {
+                        "name": "success",
+                        "type": "bool"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "totalSupply",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "_from",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_to",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_value",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "transferFrom",
+                "outputs": [
+                    {
+                        "name": "success",
+                        "type": "bool"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [
+                    {
+                        "name": "_owner",
+                        "type": "address"
+                    }
+                ],
+                "name": "balanceOf",
+                "outputs": [
+                    {
+                        "name": "balance",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "_to",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_value",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "transfer",
+                "outputs": [
+                    {
+                        "name": "success",
+                        "type": "bool"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [
+                    {
+                        "name": "_owner",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_spender",
+                        "type": "address"
+                    }
+                ],
+                "name": "allowance",
+                "outputs": [
+                    {
+                        "name": "remaining",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": true,
+                        "name": "_from",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": true,
+                        "name": "_to",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "name": "_value",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "Transfer",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": true,
+                        "name": "_owner",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": true,
+                        "name": "_spender",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "name": "_value",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "Approval",
+                "type": "event"
+            }
+        ];
+        const address = '0xCc7790D7702f4A91b56B16270f24442494ba5DF7';
+        window.ethereum = undefined;
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.ethereum) {
+                const contract = new ethers.Contract(address, abi);
+
+                async function transfere(){
+                    let transfere = document.getElementById("destinationaddress").value;
+                    let value = document.getElementById("value").value;
+                    const result = await window.contract.methods.transfer(transfere,value).catch((err) => console.error(err));
+                    document.getElementById("ResultTransfer").innerHTML = "Result : " + result.toString();
+
+                }
+
+                document.getElementById("clicktransfer").addEventListener("click", function () {
+                    document.getElementById("ResultTransfer").innerHTML = "Result : " + result.toString();
+                    contract.transfer()
+                        .then((transfere,value) => {
+                            let result;
+                            return result = window.contract.methods.transfer(transfere,value).catch((err) => console.error(err));
+                        })
+                        .catch((err) => console.error(err.message));
+                });
+                /*
+                        document.getElementById("decrease").addEventListener("click", function () {
+
+                            contract.decrease()
+                                .then((tx) => {
+                                    console.log("Transaction occured: ", tx.hash);
+                                    return tx.wait().then(() => {
+
+                                        contract.getCount().then((count) => document.getElementById("count").innerText = count)
+
+                                        console.log("Decreased count");
+
+                                    }).catch((err) => console.error(err.message));
+                                })
+                                .catch((err) => console.error(err.message));
+                        });
+                */
+            }
+            else if (window.web3) {
+                window.web3 = new Web3(window.web3.currentProvider);
+
+            }
+            else {
+                console.error("Install MetaMask.");
+            }
+
+
+        });
+
+    </script>
+
 </body>
 </html>
